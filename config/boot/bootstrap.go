@@ -2,6 +2,7 @@ package boot
 
 import (
 	"example/config/env"
+	"example/config/routes"
 	"example/databases/connection/sql"
 	"example/docs"
 	httpHelper "example/http/helpers"
@@ -53,7 +54,13 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 
 	h.E.Use(customMiddleware.MiddlewareLogging)
 	// Begin Register All End Point
-
+	baseEndpointGroup := h.E.Group("/api/cms")
+	{
+		version1 := baseEndpointGroup.Group("/v1")
+		{
+			routes.RegisterUserRoutes(version1, sql.DB, h.Config, h.Helper)
+		}
+	}
 	// End Register All End Point
 
 	return h
