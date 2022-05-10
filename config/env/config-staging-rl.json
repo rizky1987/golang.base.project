@@ -1,0 +1,28 @@
+{
+    "app": {
+        "debug": true,
+        "name": "MS Royalty",
+        "host": "localhost",
+        "base_path" : "api",
+        "port" : "80",
+        "version": "v1.3"
+    },
+    "database": {
+        "sql_server": {
+            "debug": true,
+            "host": "staging.radyalabs.id",
+            "database": "ACPBUS_Catalog",
+            "user": "devrl",
+            "password": "AKUsayangRL2011",
+            "port": "1433"
+        }
+    },
+    "security" : {
+        "jwt_secret" : "EObX23RcZlXz1U6mh2qkwVN7LEivNZK7r8t6U5yw-MaSZJXpI2_2ocTtUGRA6CzX4uzJLGJdodzGRCtHusSA6Ta51QkqHJYHgwGqiqoHWMJxNEMcGmTfvE5AyyVAxfkU"
+    },
+    "third_part" : {
+        "application_insight" : {
+            "instrumentationkey" : "c96fb6e7-4535-4ce5-a946-3db27547da62"
+        }
+    }
+}

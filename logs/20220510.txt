@@ -1,0 +1,24 @@
+[MS Royalty] 20220510090411 || unauthorized || your token is null || C:/Users/RizQ/go-path/src/example/http/services/user_service.go:31
+[MS Royalty] 20220510090412 || unauthorized || your token is null || C:/Users/RizQ/go-path/src/example/http/services/user_service.go:31
+[MS Royalty] 20220510123107 || unexpected_error || recovering from err runtime error: invalid memory address or nil pointer dereference
+ goroutine 27 [running]:
+example/config/middleware.MiddlewareLogging.func1.1({0x1476a04, 0x135aa060})
+	C:/Users/RizQ/go-path/src/example/config/middleware/customLogger.go:18 +0x84
+panic({0x12e0320, 0x2a7f768})
+	C:/Go/src/runtime/panic.go:1038 +0x1bc
+example/http/services.(*ProductHandler).CreateHandler(0x13e08d20, {0x1476a04, 0x135aa060})
+	C:/Users/RizQ/go-path/src/example/http/services/user_service.go:53 +0x1bf
+github.com/labstack/echo/v4.(*Echo).add.func1({0x1476a04, 0x135aa060})
+	C:/Users/RizQ/go-path/pkg/mod/github.com/labstack/echo/v4@v4.7.2/echo.go:520 +0x4c
+example/config/middleware.MiddlewareLogging.func1({0x1476a04, 0x135aa060})
+	C:/Users/RizQ/go-path/src/example/config/middleware/customLogger.go:33 +0x6c
+github.com/labstack/echo/v4.(*Echo).ServeHTTP(0x137ac140, {0x145f544, 0x13dde000}, 0x13dbe080)
+	C:/Users/RizQ/go-path/pkg/mod/github.com/labstack/echo/v4@v4.7.2/echo.go:630 +0x3a6
+net/http.serverHandler.ServeHTTP({0x13798750}, {0x145f544, 0x13dde000}, 0x13dbe080)
+	C:/Go/src/net/http/server.go:2879 +0x359
+net/http.(*conn).serve(0x13771f20, {0x145fac8, 0x135cbc08})
+	C:/Go/src/net/http/server.go:1930 +0xc16
+created by net/http.(*Server).Serve
+	C:/Go/src/net/http/server.go:3034 +0x428
+ || :0
+failed connect to DB || unexpected_error || mssql: login error: Cannot open database "APLezMicBusDbsssss" that was requested by the login. Using the user default database "master" instead. || :0

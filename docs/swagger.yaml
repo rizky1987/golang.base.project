@@ -1,0 +1,64 @@
+definitions:
+  responses.AlertResponse:
+    properties:
+      code:
+        type: integer
+      inner_message:
+        type: string
+      message:
+        type: string
+    type: object
+  responses.CommonBaseResponse:
+    properties:
+      alert:
+        $ref: '#/definitions/responses.AlertResponse'
+        type: object
+      data:
+        additionalProperties: true
+        type: object
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/cms/v1/product/create:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Product Create
+      operationId: ProductCreate
+      parameters:
+      - description: Bearer %
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: productCode
+        in: formData
+        name: productCode
+        required: true
+        type: string
+      - description: dosageDescription
+        in: formData
+        name: dosageDescription
+        type: string
+      - description: usabilityDescription
+        in: formData
+        name: usabilityDescription
+        type: string
+      - description: composition
+        in: formData
+        name: composition
+        type: string
+      - description: howToUseDescription
+        in: formData
+        name: howToUseDescription
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - Product
+swagger: "2.0"
