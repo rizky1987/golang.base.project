@@ -2,13 +2,13 @@ package boot
 
 import (
 	"example/config/env"
-	"example/config/routes"
-	"example/databases/connection/mongo"
 	"example/docs"
 	httpHelper "example/http/helpers"
 	"fmt"
 
 	customMiddleware "example/config/middleware"
+
+	"example/databases/connection/mongo"
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/labstack/echo/v4"
@@ -32,13 +32,14 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 		Translator: h.Translator,
 	}
 
-	databaseHost := h.Config.GetString("database.sql_server.host")
-	databaseName := h.Config.GetString("database.sql_server.database")
-	databaseUser := h.Config.GetString("database.sql_server.user")
-	databasePassword := h.Config.GetString("database.sql_server.password")
-	databasePort := h.Config.GetString("database.sql_server.port")
+	databaseHost := h.Config.GetString("database.mongo_db.host")
+	databaseName := h.Config.GetString("database.mongo_db.database")
+	databaseUser := h.Config.GetString("database.mongo_db.user")
+	databasePassword := h.Config.GetString("database.mongo_db.password")
+	databasePort := h.Config.GetString("database.mongo_db.port")
 
-	mongoDBSession, err := mongo.Connect(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
+	// mongoDBSession, err := mongo.Connect(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
+	_, err := mongo.Connect(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
 	if err != nil {
 		panic(err)
 	}
@@ -56,13 +57,7 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 
 	h.E.Use(customMiddleware.MiddlewareLogging)
 	// Begin Register All End Point
-	baseEndpointGroup := h.E.Group("/api/cms")
-	{
-		version1 := baseEndpointGroup.Group("/v1")
-		{
-			routes.RegisterCartRoutes(version1, mongoDBSession, databaseName, h.Config, h.Helper)
-		}
-	}
+
 	// End Register All End Point
 
 	return h

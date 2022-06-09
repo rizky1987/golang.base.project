@@ -23,6 +23,9 @@
     "third_part" : {
         "application_insight" : {
             "instrumentationkey" : "c96fb6e7-4535-4ce5-a946-3db27547da62"
+        },
+        "sap_core" : {
+            "base_url" : "https://app.aplcare.com/aplgouat/webservice.asmx"
         }
     }
 }
