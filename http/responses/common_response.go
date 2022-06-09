@@ -1,8 +1,8 @@
 package responses
 
 type CommonBaseResponse struct {
-	Alert AlertResponse          `json:"alert"`
-	Data  map[string]interface{} `json:"data"`
+	Alert AlertResponse `json:"alert"`
+	Data  interface{}   `json:"data"`
 }
 
 type AlertResponse struct {
