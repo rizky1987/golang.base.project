@@ -82,12 +82,60 @@ func (u *HTTPHelper) SetCommonResponse(c echo.Context, serverResponse ServerResp
 
 	if serverResponse.Code != 200 {
 		errorCode := utils.GenerateErrorCode()
+		result.Alert.InnerMessage = innerMessage
+		result.Alert.Message = errorCode
+
+		utils.SaveErrorToApplicationInsight(errorCode, serverResponse.Type, innerMessage, fileLocation, fileLine)
+	}
+
+	return result
+}
+
+func (u *HTTPHelper) SetCommonDataResponse(c echo.Context, serverResponse ServerResponse, innerMessage, fileLocation string, fileLine int, data interface{}) response.CommonBaseResponse {
+
+	result := response.CommonBaseResponse{
+
+		Alert: response.AlertResponse{
+			Code:         serverResponse.Code,
+			Message:      serverResponse.Type,
+			InnerMessage: innerMessage,
+		},
+		Data: make(map[string]interface{}),
+	}
+
+	if data != nil {
+		result.Data = data
+	}
+
+	if serverResponse.Code != 200 {
+		errorCode := utils.GenerateErrorCode()
 		result.Alert.InnerMessage = fmt.Sprintf("%s || %s", errorCode, innerMessage)
 
 		utils.SaveErrorToApplicationInsight(errorCode, serverResponse.Type, innerMessage, fileLocation, fileLine)
 	}
 
 	return result
+}
+
+func (u *HTTPHelper) SendDataSuccess(c echo.Context, proccessType, entityName, entityField, entityData string, data interface{}) error {
+
+	innerMessage := fmt.Sprintf(SuccessCrudMessage, proccessType, entityName, entityField, entityData)
+	res := u.SetCommonDataResponse(c, SuccessServerResponse, innerMessage, "", 0, data)
+	return c.JSON(res.Alert.Code, res)
+}
+
+func (u *HTTPHelper) SendAllDataSuccess(c echo.Context, entityName string, data interface{}) error {
+
+	innerMessage := fmt.Sprintf(SuccessAllDataMessage, entityName)
+	res := u.SetCommonDataResponse(c, SuccessServerResponse, innerMessage, "", 0, data)
+	return c.JSON(res.Alert.Code, res)
+}
+
+func (u *HTTPHelper) SendAllDataSuccessWithWarningMessage(c echo.Context, warningMessage, entityName string, data interface{}) error {
+
+	innerMessage := fmt.Sprintf(SuccessAllDataMessage, entityName)
+	res := u.SetCommonDataResponse(c, SuccessServerResponse, innerMessage, warningMessage, 0, data)
+	return c.JSON(res.Alert.Code, res)
 }
 
 // SendError ...
@@ -100,12 +148,11 @@ func (u *HTTPHelper) SetCommonResponse(c echo.Context, serverResponse ServerResp
 
 // SendBadRequest ...
 // Send bad request response to consumers.
-// func (u *HTTPHelper) SendBadRequest(c echo.Context, errMessages []string) error {
+func (u *HTTPHelper) SendBadRequest(c echo.Context, errorMessage string, fileLocation string, fileLine int) error {
+	res := u.SetCommonResponse(c, BadRequestErrorServerResponse, errorMessage, fileLocation, fileLine)
 
-// 	res := u.SetResponse(c, errMessages, nil, BadRequestErrorServerResponse)
-
-// 	return u.SendResponse(res)
-// }
+	return c.JSON(400, res)
+}
 
 // SendNotFoundRequest ...
 // Send bad request response to consumers.
@@ -122,7 +169,7 @@ func (u *HTTPHelper) SendUnauthorizedError(c echo.Context, errorMessage string, 
 
 	res := u.SetCommonResponse(c, UnauthorizedErrorServerResponse, errorMessage, fileLocation, fileLine)
 
-	return c.JSON(res.Alert.Code, res)
+	return c.JSON(200, res)
 }
 
 // SendSuccess ...
@@ -130,7 +177,7 @@ func (u *HTTPHelper) SendSuccess(c echo.Context, proccessType, entityName, entit
 
 	innerMessage := fmt.Sprintf(SuccessCrudMessage, proccessType, entityName, entityField, entityData)
 	res := u.SetCommonResponse(c, SuccessServerResponse, innerMessage, "", 0)
-	return c.JSON(res.Alert.Code, res)
+	return c.JSON(200, res)
 }
 
 // SendValidationError ...
@@ -138,7 +185,7 @@ func (u *HTTPHelper) SendSuccess(c echo.Context, proccessType, entityName, entit
 func (u *HTTPHelper) SendValidationError(c echo.Context, errorMessage, fileLocation string, fileLine int) error {
 	res := u.SetCommonResponse(c, BadRequestErrorServerResponse, errorMessage, fileLocation, fileLine)
 
-	return c.JSON(res.Alert.Code, res)
+	return c.JSON(200, res)
 }
 
 // SendDatabaseError ...
@@ -146,7 +193,7 @@ func (u *HTTPHelper) SendValidationError(c echo.Context, errorMessage, fileLocat
 func (u *HTTPHelper) SendDatabaseError(c echo.Context, errorMessage, fileLocation string, fileLine int) error {
 	res := u.SetCommonResponse(c, DatabaseErrorServerResponse, errorMessage, fileLocation, fileLine)
 
-	return c.JSON(res.Alert.Code, res)
+	return c.JSON(200, res)
 }
 
 // SendDatabaseError ...
@@ -156,7 +203,15 @@ func (u *HTTPHelper) SendDuplicateError(c echo.Context, entityName, entityData, 
 
 	res := u.SetCommonResponse(c, DuplicateErrorServerResponse, errMessage, fileLocation, fileLine)
 
-	return c.JSON(res.Alert.Code, res)
+	return c.JSON(200, res)
+}
+
+// SendDatabaseError ...
+// Send database error response to consumers.
+func (u *HTTPHelper) SendThirdPartError(c echo.Context, errorMessage, fileLocation string, fileLine int) error {
+	res := u.SetCommonResponse(c, DatabaseErrorServerResponse, errorMessage, fileLocation, fileLine)
+
+	return c.JSON(200, res)
 }
 
 // Error Middleware
