@@ -4,9 +4,9 @@ import (
 	"example/config/env"
 	"example/http/helpers"
 	"example/http/interfaces"
-	"runtime"
+	"fmt"
 
-	"example/http/responses"
+	sapCore "example/utils/sap_core"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -24,12 +24,26 @@ func (_h *CartHandler) GetAllCart(ctx echo.Context) error {
 		err error
 	)
 
-	cartEntities, err := _h.CartRepository.GetAllCart()
-	if err != nil {
-		_, fileLocation, fileLine, _ := runtime.Caller(0)
-		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
+	// begin connect to SAP
+
+	// isi parameter yang diperlukan untuk request ke SAP
+	reqParam := sapCore.GetDataProductByPrincipalRequestToSAP{
+		StartNo:   0,
+		EndNo:     1000,
+		Principal: "0001",
 	}
 
-	results := responses.ConvertListCartMongoEntityToCartResponseResponse(cartEntities)
-	return _h.Helper.SendAllDataSuccess(ctx, "Cart", results)
+	records, errorMessage, errorFileLocation, errorFileLine := sapCore.GetProductByPrincipal(reqParam)
+	if errorMessage != "" {
+
+		// ini hanya contoh saja kedapnnya sesuaikan dengan kebutuhan
+		return _h.Helper.SendBadRequest(ctx, err.Error(), errorFileLocation, errorFileLine)
+
+	}
+
+	// jika sudah dapat "recods" kita bisa mengolah datanya sesuia dengan kebutuhan
+	fmt.Println(records)
+
+	// end connect to SAP
+	return _h.Helper.SendAllDataSuccess(ctx, "Cart", records)
 }
