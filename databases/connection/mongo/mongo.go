@@ -26,7 +26,7 @@ func Connect(host, database, user, password, port string) (*mgo.Session, error) 
 	session, err := mgo.DialWithInfo(mongoDBDialInfo)
 
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	session.SetMode(mgo.Monotonic, true)
 	return session, err

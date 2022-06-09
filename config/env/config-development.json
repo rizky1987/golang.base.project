@@ -8,12 +8,13 @@
         "version": "v1.3"
     },
     "database": {
-        "sql_server": {
+        "mongo_db": {
+            "debug": true,
             "host": "localhost",
-            "database": "APLezMicBusDb",
-            "user": "radya",
-            "password": "123456",
-            "port": "1146"
+            "database": "cart",
+            "user": "",
+            "password": "",
+            "port": "27017"
         }
     },
     "security" : {

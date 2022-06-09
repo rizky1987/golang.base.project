@@ -8,13 +8,13 @@
         "version": "v1.3"
     },
     "database": {
-        "sql_server": {
+        "mongo_db": {
             "debug": true,
-            "host": "staging.radyalabs.id",
-            "database": "ACPBUS_Catalog",
-            "user": "devrl",
-            "password": "AKUsayangRL2011",
-            "port": "1433"
+            "host": "localhost",
+            "database": "cart",
+            "user": "",
+            "password": "",
+            "port": "27017"
         }
     },
     "security" : {
