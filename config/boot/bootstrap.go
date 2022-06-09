@@ -2,12 +2,13 @@ package boot
 
 import (
 	"example/config/env"
-	"example/databases/connection/sql"
 	"example/docs"
 	httpHelper "example/http/helpers"
 	"fmt"
 
 	customMiddleware "example/config/middleware"
+
+	"example/databases/connection/mongo"
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/labstack/echo/v4"
@@ -31,14 +32,17 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 		Translator: h.Translator,
 	}
 
-	databaseHost := h.Config.GetString("database.sql_server.host")
-	databaseName := h.Config.GetString("database.sql_server.database")
-	databaseUser := h.Config.GetString("database.sql_server.user")
-	databasePassword := h.Config.GetString("database.sql_server.password")
-	databasePort := h.Config.GetString("database.sql_server.port")
+	databaseHost := h.Config.GetString("database.mongo_db.host")
+	databaseName := h.Config.GetString("database.mongo_db.database")
+	databaseUser := h.Config.GetString("database.mongo_db.user")
+	databasePassword := h.Config.GetString("database.mongo_db.password")
+	databasePort := h.Config.GetString("database.mongo_db.port")
 
-	sql.NewDB(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
-
+	// mongoDBSession, err := mongo.Connect(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
+	_, err := mongo.Connect(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
+	if err != nil {
+		panic(err)
+	}
 	// End DB Connection
 
 	host := fmt.Sprintf("%s:%s", h.Config.GetString(`app.host`), h.Config.GetString(`app.port`))
