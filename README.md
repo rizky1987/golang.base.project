@@ -1,0 +1,1 @@
+Ini adalah contoh untuk bulk insert dengan database mongoDB 
