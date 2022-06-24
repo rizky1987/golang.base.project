@@ -1,6 +1,7 @@
 package message_bus_send
 
 import (
+	"encoding/json"
 	config "example/config/env"
 	messageBusLibrary "example/utils/message_bus/library"
 
@@ -27,6 +28,32 @@ func getProductMessageBusCredential() ProductMessageBusCredentialData {
 	}
 
 }
+
+// begin example for Send Data to Message bus with object type struct
+// 1. Ini Contoh Dummy Struct
+type DummyStruct struct {
+	Nama   string `json:nama`
+	Alamat string `json:alamat`
+}
+
+//2. fungsi ini hanya contoh saja. Sebenernya fungsi SendCreateProduct
+//ini bisa di panggil dr tempait lain dalam folder "http"
+func example() {
+
+	dataToSend := DummyStruct{
+		Nama:   "Rizky Unyu",
+		Alamat: "Jeddah",
+	}
+
+	byteofObject, err := json.Marshal(dataToSend)
+	if err != nil {
+		// save to log
+	}
+
+	SendCreateProduct(byteofObject)
+}
+
+// end example for Send Data to Message bus with object type struct
 
 func SendCreateProduct(byteofObject []byte) error {
 	config := config.NewViperConfig()
