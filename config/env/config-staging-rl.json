@@ -23,6 +23,19 @@
     "third_part" : {
         "application_insight" : {
             "instrumentationkey" : "c96fb6e7-4535-4ce5-a946-3db27547da62"
+        },
+        "service_bus" : {
+            "credential" : {
+                "namespace" : "rl-ezmic-servicebus",
+                "key_name":"RootManageSharedAccessKey",
+                "key_value":"mQJW2oKRgXCRdUe8fnqHTghiCFataAfyr2VBYD9MYxI="
+            },
+            "catalog_topic_and_subcription" : {
+                "product_subcription_name" : "cap.queue.ezrx.catalog.api.v1",
+                "create_product_topic_name" : "ezrx.catalog.create-product",
+                "update_product_topic_name" : "ezrx.catalog.update-product",
+                "delete_product_topic_name" : "ezrx.catalog.delete-product"
+            }
         }
     }
 }
