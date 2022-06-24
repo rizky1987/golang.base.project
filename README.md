@@ -1,0 +1,1 @@
+Ini adalah contoh kodingan untuk mengirim dan menerima data dari message bus.
