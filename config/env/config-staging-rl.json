@@ -31,7 +31,7 @@
                 "key_value":"mQJW2oKRgXCRdUe8fnqHTghiCFataAfyr2VBYD9MYxI="
             },
             "catalog_topic_and_subcription" : {
-                "product_subcription_name" : "cap.queue.ezrx.catalog.api.v1",
+                "subcription_name" : "cap.queue.ezrx.catalog.api.v1",
                 "create_product_topic_name" : "ezrx.catalog.create-product",
                 "update_product_topic_name" : "ezrx.catalog.update-product",
                 "delete_product_topic_name" : "ezrx.catalog.delete-product"
