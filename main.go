@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example/commonHelpers"
 	"example/config/boot"
 	cfg "example/config/env"
 	"fmt"
@@ -47,12 +48,12 @@ func main() {
 
 	apiHandler.RegisterApiHandler()
 
-	host := fmt.Sprintf("%s:%s", app.config.GetString(`app.host`), app.config.GetString(`app.port`))
+	host := fmt.Sprintf("%s:%s", commonHelpers.GetConfigurationStringValue(`app.host`), commonHelpers.GetConfigurationStringValue(`app.port`))
 	e.Start(host)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":" + app.config.GetString(`app.port`)))
+	e.Logger.Fatal(e.Start(":" + commonHelpers.GetConfigurationStringValue(`app.port`)))
 
 }
 

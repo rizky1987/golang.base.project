@@ -5,15 +5,14 @@ import (
 	"os"
 	"time"
 
-	config "example/config/env"
+	"example/commonHelpers"
 
 	"github.com/microsoft/ApplicationInsights-Go/appinsights"
 )
 
 func SaveErrorToApplicationInsight(errorCode, errorType, errorMessage, fileLocation string, fileLine int) {
-	config := config.NewViperConfig()
 
-	instrumentationkey := config.GetString("third_part.application_insight.instrumentationkey")
+	instrumentationkey := commonHelpers.GetConfigurationStringValue("third_part.application_insight.instrumentationkey")
 	telemetryConfig := appinsights.NewTelemetryConfiguration(instrumentationkey)
 
 	client := appinsights.NewTelemetryClientFromConfig(telemetryConfig)
@@ -29,7 +28,7 @@ func SaveErrorToApplicationInsight(errorCode, errorType, errorMessage, fileLocat
 	trace.Timestamp = time.Now()
 	client.Track(trace)
 
-	isApplicationOnDebugMode := config.GetBool("app.debug")
+	isApplicationOnDebugMode := commonHelpers.GetConfigurationBoolValue("app.debug")
 
 	if isApplicationOnDebugMode {
 
@@ -46,11 +45,9 @@ func SaveErrorToApplicationInsight(errorCode, errorType, errorMessage, fileLocat
 
 func GenerateErrorCode() string {
 
-	config := config.NewViperConfig()
-
 	currentTime := time.Now().Format("20060102150405")
 
-	errorCode := fmt.Sprintf("[%s] %s", config.GetString("app.name"), currentTime)
+	errorCode := fmt.Sprintf("[%s] %s", commonHelpers.GetConfigurationStringValue("app.name"), currentTime)
 
 	return errorCode
 }

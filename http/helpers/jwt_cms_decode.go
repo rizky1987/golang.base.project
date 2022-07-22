@@ -10,7 +10,6 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"example/commonHelpers"
-	config "example/config/env"
 )
 
 type JWTSession struct {
@@ -27,8 +26,6 @@ type JWTSession struct {
 }
 
 func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
-
-	config := config.NewViperConfig()
 
 	dataJwt := JWTSession{}
 	jwtString := c.Request().Header.Get("Authorization")
@@ -48,7 +45,7 @@ func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 
-		return []byte(config.GetString("security.jwt_secret")), nil
+		return []byte(commonHelpers.GetConfigurationStringValue("security.jwt_secret")), nil
 	})
 
 	if token == nil {

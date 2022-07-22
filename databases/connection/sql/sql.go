@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	config "example/config/env"
-
+	"example/commonHelpers"
 	"example/utils"
 
 	"gorm.io/driver/sqlserver"
@@ -17,7 +16,6 @@ var DB *gorm.DB
 
 // NewDB inital connection db
 func NewDB(host, database, user, password, port string) {
-	config := config.NewViperConfig()
 
 	dsn := fmt.Sprintf(
 		"sqlserver://%s:%s@%s:%s?database=%s",
@@ -34,7 +32,7 @@ func NewDB(host, database, user, password, port string) {
 		panic(err)
 	}
 
-	isDatabaseOnDebugMode := config.GetBool("database.sql_server.debug")
+	isDatabaseOnDebugMode := commonHelpers.GetConfigurationBoolValue("database.sql_server.debug")
 	if isDatabaseOnDebugMode {
 		db = db.Debug()
 	}

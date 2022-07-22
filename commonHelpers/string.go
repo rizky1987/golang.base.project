@@ -11,3 +11,7 @@ func StringSplitToArrayString(inputString, delimiter string) []string {
 func TrimWhiteSpace(inputString string) string {
 	return strings.TrimSpace(inputString)
 }
+
+func StringReplace(original, from, to string) string {
+	return strings.ReplaceAll(original, from, to)
+}
