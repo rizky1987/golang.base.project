@@ -1,5 +1,7 @@
 {
     "app": {
+        "is_run_on_local": true,
+        "show_swagger": true,
         "debug": true,
         "name": "MS Royalty",
         "host": "localhost",

@@ -1,5 +1,7 @@
 {
     "app": {
+        "is_run_on_local": true,
+        "show_swagger": true,
         "name": "MS Royalty",
         "debug": true,
         "host": "localhost",
@@ -9,11 +11,11 @@
     },
     "database": {
         "sql_server": {
-            "host": "localhost",
-            "database": "APLezMicBusDb",
-            "user": "radya",
-            "password": "123456",
-            "port": "1146"
+            "host": "dbaplapq.public.5adcb682e020.database.windows.net",
+            "database": "rl_dev_ezrx_loyalty",
+            "user": "ezviewusr",
+            "password": "ezview1234@",
+            "port": "3342"
         }
     },
     "security" : {

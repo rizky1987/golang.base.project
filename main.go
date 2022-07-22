@@ -50,9 +50,11 @@ func main() {
 
 	host := fmt.Sprintf("%s:%s", commonHelpers.GetConfigurationStringValue(`app.host`), commonHelpers.GetConfigurationStringValue(`app.port`))
 	e.Start(host)
+	if commonHelpers.GetConfigurationBoolValue(`app.show_swagger`) {
+		e.GET("/swagger/*", echoSwagger.WrapHandler)
+	}
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
-
+	fmt.Println(commonHelpers.GetConfigurationStringValue(`app.port`))
 	e.Logger.Fatal(e.Start(":" + commonHelpers.GetConfigurationStringValue(`app.port`)))
 
 }
