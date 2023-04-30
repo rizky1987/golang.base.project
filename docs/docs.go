@@ -16,6 +16,44 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/cms/v1/booking/create": {
+            "post": {
+                "description": "Booking Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Booking"
+                ],
+                "operationId": "BookingCreate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer %",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateBookingRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/cms/v1/floor/create": {
             "post": {
                 "description": "Floor Create",
@@ -161,6 +199,50 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "requests.CreateBookingDetailRequest": {
+            "type": "object",
+            "required": [
+                "roomId"
+            ],
+            "properties": {
+                "roomId": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateBookingRequest": {
+            "type": "object",
+            "required": [
+                "bookedName",
+                "bookingDetails",
+                "downPayment",
+                "endDate",
+                "startDate"
+            ],
+            "properties": {
+                "bookedName": {
+                    "type": "string"
+                },
+                "bookingDetails": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/requests.CreateBookingDetailRequest"
+                    }
+                },
+                "downPayment": {
+                    "type": "integer"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "isTimeRulesAgree": {
+                    "type": "boolean"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            }
+        },
         "responses.AlertResponse": {
             "type": "object",
             "properties": {

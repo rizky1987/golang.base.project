@@ -1,4 +1,34 @@
 definitions:
+  requests.CreateBookingDetailRequest:
+    properties:
+      roomId:
+        type: string
+    required:
+    - roomId
+    type: object
+  requests.CreateBookingRequest:
+    properties:
+      bookedName:
+        type: string
+      bookingDetails:
+        items:
+          $ref: '#/definitions/requests.CreateBookingDetailRequest'
+        type: array
+      downPayment:
+        type: integer
+      endDate:
+        type: string
+      isTimeRulesAgree:
+        type: boolean
+      startDate:
+        type: string
+    required:
+    - bookedName
+    - bookingDetails
+    - downPayment
+    - endDate
+    - startDate
+    type: object
   responses.AlertResponse:
     properties:
       code:
@@ -17,6 +47,31 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/cms/v1/booking/create:
+    post:
+      consumes:
+      - application/json
+      description: Booking Create
+      operationId: BookingCreate
+      parameters:
+      - description: Bearer %
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateBookingRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - Booking
   /api/cms/v1/floor/create:
     post:
       consumes:

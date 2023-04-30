@@ -61,6 +61,7 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 			routes.RegisterRoomTypeRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterFloorRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterRoomRoutes(version1, sql.DB, h.Config, h.Helper)
+			routes.RegisterBookingRoutes(version1, sql.DB, h.Config, h.Helper)
 
 		}
 	}

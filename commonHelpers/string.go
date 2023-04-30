@@ -3,6 +3,7 @@ package commonHelpers
 import (
 	"errors"
 	"strings"
+	"time"
 
 	mssql "github.com/denisenkom/go-mssqldb"
 )
@@ -30,4 +31,20 @@ func StringToNewUUID(UUIDString string) (mssql.UniqueIdentifier, error) {
 
 	return newUUID, nil
 
+}
+
+func ConvertStringToDateTimeNullAble(dateInString string) (*time.Time, error) {
+
+	if TrimWhiteSpace(dateInString) != "" {
+		resultDate, err := time.Parse(LayoutDateYYYYMMDDWithDashes, TrimWhiteSpace(dateInString))
+		if err != nil {
+
+			errorResult := "Please input your date with format \"yyyy-MM-dd\"" + err.Error()
+			return nil, errors.New(errorResult)
+		}
+
+		return &resultDate, nil
+	}
+
+	return nil, nil
 }

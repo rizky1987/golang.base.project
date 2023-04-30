@@ -15,7 +15,7 @@ func GetHorizonTimeOnStringType() string {
 
 func GetCurrentTimeAsiaJakarta() time.Time {
 	loc, _ := time.LoadLocation("Asia/Jakarta")
-	return time.Now().In(loc).Add(7 * time.Hour)
+	return time.Now().In(loc)
 }
 
 func GetCurrentTimeUTCOnStringFormatYYYYMMDD() string {

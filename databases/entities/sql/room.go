@@ -22,6 +22,18 @@ type (
 		DeletedBy    *string                `gorm:"column:DeletedBy"`
 		DeletedDate  *time.Time             `gorm:"column:DeletedDate"`
 	}
+
+	TempRoomDetail struct {
+		RoomId       mssql.UniqueIdentifier `gorm:"column:RoomId"`
+		RoomCode     string                 `gorm:"column:RoomCode"`
+		RoomNumber   int                    `gorm:"column:RoomNumber"`
+		FloorId      mssql.UniqueIdentifier `gorm:"column:FloorId"`
+		FloorNumber  int                    `gorm:"column:FloorNumber"`
+		FloorPrice   int                    `gorm:"column:FloorPrice"`
+		RoomTypeId   mssql.UniqueIdentifier `gorm:"column:RoomTypeId"`
+		RoomTypeCode string                 `gorm:"column:RoomTypeCode"`
+		RoomTypeName string                 `gorm:"column:RoomTypeName"`
+	}
 )
 
 func (x Room) TableName() string {
