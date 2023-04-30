@@ -108,6 +108,56 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/cms/v1/room/create": {
+            "post": {
+                "description": "Room Create",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "Room"
+                ],
+                "operationId": "RoomCreate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer %",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "floorId",
+                        "name": "floorId",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "code",
+                        "name": "code",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "number",
+                        "name": "number",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

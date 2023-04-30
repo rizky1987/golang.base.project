@@ -60,6 +60,8 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 		{
 			routes.RegisterRoomTypeRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterFloorRoutes(version1, sql.DB, h.Config, h.Helper)
+			routes.RegisterRoomRoutes(version1, sql.DB, h.Config, h.Helper)
+
 		}
 	}
 	// End Register All End Point
