@@ -37,10 +37,12 @@ paths:
       - description: roomTypeId
         in: formData
         name: roomTypeId
-        type: integer
+        required: true
+        type: string
       - description: price
         in: formData
         name: price
+        required: true
         type: integer
       responses:
         "200":
@@ -49,4 +51,33 @@ paths:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
       - Floor
+  /api/cms/v1/room-type/create:
+    post:
+      consumes:
+      - multipart/form-data
+      description: RoomType Create
+      operationId: RoomTypeCreate
+      parameters:
+      - description: Bearer %
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: code
+        in: formData
+        name: code
+        required: true
+        type: string
+      - description: name
+        in: formData
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - RoomType
 swagger: "2.0"

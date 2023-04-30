@@ -8,15 +8,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type respositoryUser struct {
+type respositoryFloor struct {
 	DB *gorm.DB
 }
 
 func NewFloorRepository(db *gorm.DB) interfaces.FloorInterface {
-	return &respositoryUser{db}
+	return &respositoryFloor{db}
 }
 
-func (ctx respositoryUser) Create(transaction *gorm.DB, data SQLEntity.Floor) (*SQLEntity.Floor, error) {
+func (ctx respositoryFloor) Create(transaction *gorm.DB, data SQLEntity.Floor) (*SQLEntity.Floor, error) {
 	var err error
 
 	if transaction != nil {
@@ -32,7 +32,7 @@ func (ctx respositoryUser) Create(transaction *gorm.DB, data SQLEntity.Floor) (*
 	return &data, nil
 }
 
-func (ctx respositoryUser) GetFloorByNumber(number int) (*SQLEntity.Floor, error) {
+func (ctx respositoryFloor) GetFloorByNumber(number int) (*SQLEntity.Floor, error) {
 	var floor *SQLEntity.Floor
 	res := ctx.DB.Where(
 		&SQLEntity.Floor{

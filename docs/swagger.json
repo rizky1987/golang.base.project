@@ -30,16 +30,61 @@
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "roomTypeId",
                         "name": "roomTypeId",
-                        "in": "formData"
+                        "in": "formData",
+                        "required": true
                     },
                     {
                         "type": "integer",
                         "description": "price",
                         "name": "price",
-                        "in": "formData"
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cms/v1/room-type/create": {
+            "post": {
+                "description": "RoomType Create",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "RoomType"
+                ],
+                "operationId": "RoomTypeCreate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer %",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "code",
+                        "name": "code",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {

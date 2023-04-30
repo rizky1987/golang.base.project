@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"hotel/commonHelpers"
 	"hotel/config/env"
 	"hotel/http/helpers"
@@ -16,17 +15,17 @@ import (
 	SQLEntity "hotel/databases/entities/sql"
 )
 
-type FloorHandler struct {
-	DB              *gorm.DB
-	Helper          helpers.HTTPHelper
-	Config          env.Config
-	FloorRepository interfaces.FloorInterface
+type RoomTypeHandler struct {
+	DB                 *gorm.DB
+	Helper             helpers.HTTPHelper
+	Config             env.Config
+	RoomTypeRepository interfaces.RoomTypeInterface
 }
 
-func (_h *FloorHandler) CreateHandler(ctx echo.Context) error {
+func (_h *RoomTypeHandler) CreateHandler(ctx echo.Context) error {
 	var (
 		err   error
-		input requests.CreateFloorRequest
+		input requests.CreateRoomTypeRequest
 	)
 
 	// sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
@@ -46,39 +45,32 @@ func (_h *FloorHandler) CreateHandler(ctx echo.Context) error {
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	dataCurrentFloor, err := _h.FloorRepository.GetFloorByNumber(input.Number)
+	dataCurrentRoomType, err := _h.RoomTypeRepository.GetRoomTypeByCode(input.Code)
 	if err != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	if dataCurrentFloor != nil {
+	if dataCurrentRoomType != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
-		return _h.Helper.SendDuplicateError(ctx, "Floor", fmt.Sprintf("%d", dataCurrentFloor.Number), fileLocation, fileLine)
+		return _h.Helper.SendDuplicateError(ctx, "RoomType", input.Code, fileLocation, fileLine)
 	}
 
-	roomTypeId, err := commonHelpers.StringToNewUUID(input.RoomTypeId)
-	if err != nil {
-		_, fileLocation, fileLine, _ := runtime.Caller(0)
-		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
-	}
-
-	floor := SQLEntity.Floor{
-		RoomTypeId:  roomTypeId,
-		Number:      input.Number,
-		Price:       input.Price,
+	roomType := SQLEntity.RoomType{
+		Code:        input.Code,
+		Name:        input.Name,
 		CreatedBy:   "test",
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 
-	_, err = _h.FloorRepository.Create(nil, floor)
+	_, err = _h.RoomTypeRepository.Create(nil, roomType)
 	if err != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	return _h.Helper.SendSuccess(ctx, "Create", "Floor", "Number", fmt.Sprintf("%d", input.Number))
+	return _h.Helper.SendSuccess(ctx, "Create", "RoomType", "Code", input.Code)
 }

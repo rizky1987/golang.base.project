@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterUserRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.Config, httpHelper httpHelper.HTTPHelper) {
+func RegisterFloorRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.Config, httpHelper httpHelper.HTTPHelper) {
 
 	group := baseEndpointGroup.Group("/floor")
 	{
@@ -31,7 +31,7 @@ func RegisterUserRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.C
 // @Accept multipart/form-data
 // @param Authorization header string true "Bearer %"
 // @Param number formData int true "number"
-// @Param roomTypeId formData int true "roomTypeId"
+// @Param roomTypeId formData string true "roomTypeId"
 // @Param price formData int true "price"
 // @Success 200 {object} responses.CommonBaseResponse
 // @Router /api/cms/v1/floor/create [post]
