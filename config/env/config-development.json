@@ -12,18 +12,10 @@
     "database": {
         "sql_server": {
             "host": "dbaplapq.public.5adcb682e020.database.windows.net",
-            "database": "rl_dev_ezrx_loyalty",
-            "user": "ezviewusr",
-            "password": "ezview1234@",
+            "database": "hotel",
+            "user": "ezrxusr",
+            "password": "Aplprim4$",
             "port": "3342"
-        }
-    },
-    "security" : {
-        "jwt_secret" : "EObX23RcZlXz1U6mh2qkwVN7LEivNZK7r8t6U5yw-MaSZJXpI2_2ocTtUGRA6CzX4uzJLGJdodzGRCtHusSA6Ta51QkqHJYHgwGqiqoHWMJxNEMcGmTfvE5AyyVAxfkU"
-    },
-    "third_part" : {
-        "application_insight" : {
-            "instrumentationkey" : "c96fb6e7-4535-4ce5-a946-3db27547da62"
         }
     }
 }

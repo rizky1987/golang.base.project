@@ -1,10 +1,10 @@
 package main
 
 import (
-	"example/commonHelpers"
-	"example/config/boot"
-	cfg "example/config/env"
 	"fmt"
+	"hotel/commonHelpers"
+	"hotel/config/boot"
+	cfg "hotel/config/env"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 

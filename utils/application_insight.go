@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"example/commonHelpers"
+	"hotel/commonHelpers"
 
 	"github.com/microsoft/ApplicationInsights-Go/appinsights"
 )

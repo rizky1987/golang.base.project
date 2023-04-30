@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"example/utils"
+	"hotel/utils"
 
 	"github.com/labstack/echo/v4"
 )

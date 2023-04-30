@@ -12,53 +12,41 @@ definitions:
     properties:
       alert:
         $ref: '#/definitions/responses.AlertResponse'
-        type: object
-      data:
-        additionalProperties: true
-        type: object
+      data: {}
     type: object
 info:
   contact: {}
-  license: {}
 paths:
-  /api/cms/v1/product/create:
+  /api/cms/v1/floor/create:
     post:
       consumes:
       - multipart/form-data
-      description: Product Create
-      operationId: ProductCreate
+      description: Floor Create
+      operationId: FloorCreate
       parameters:
       - description: Bearer %
         in: header
         name: Authorization
         required: true
         type: string
-      - description: productCode
+      - description: number
         in: formData
-        name: productCode
+        name: number
         required: true
-        type: string
-      - description: dosageDescription
+        type: integer
+      - description: roomTypeId
         in: formData
-        name: dosageDescription
-        type: string
-      - description: usabilityDescription
+        name: roomTypeId
+        type: integer
+      - description: price
         in: formData
-        name: usabilityDescription
-        type: string
-      - description: composition
-        in: formData
-        name: composition
-        type: string
-      - description: howToUseDescription
-        in: formData
-        name: howToUseDescription
-        type: string
+        name: price
+        type: integer
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
-      - Product
+      - Floor
 swagger: "2.0"

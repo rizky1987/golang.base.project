@@ -1,14 +1,14 @@
 package boot
 
 import (
-	"example/config/env"
-	"example/config/routes"
-	"example/databases/connection/sql"
-	"example/docs"
-	httpHelper "example/http/helpers"
 	"fmt"
+	"hotel/config/env"
+	"hotel/config/routes"
+	"hotel/databases/connection/sql"
+	"hotel/docs"
+	httpHelper "hotel/http/helpers"
 
-	customMiddleware "example/config/middleware"
+	customMiddleware "hotel/config/middleware"
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/labstack/echo/v4"
@@ -69,7 +69,7 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 func serverHeader(next echo.HandlerFunc) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
-		c.Response().Header().Set(echo.HeaderServer, "Example/1.0")
+		c.Response().Header().Set(echo.HeaderServer, "hotel/1.0")
 
 		return next(c)
 	}

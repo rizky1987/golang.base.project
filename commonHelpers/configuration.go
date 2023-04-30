@@ -1,7 +1,7 @@
 package commonHelpers
 
 import (
-	config "example/config/env"
+	config "hotel/config/env"
 	"os"
 	"strconv"
 )

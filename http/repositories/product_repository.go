@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"errors"
-	entity "example/databases/entities/sql"
-	interfaces "example/http/interfaces"
+	SQLEntity "hotel/databases/entities/sql"
+	interfaces "hotel/http/interfaces"
 
 	"gorm.io/gorm"
 )
@@ -12,11 +12,11 @@ type respositoryUser struct {
 	DB *gorm.DB
 }
 
-func NewProductRepository(db *gorm.DB) interfaces.ProductInterface {
+func NewFloorRepository(db *gorm.DB) interfaces.FloorInterface {
 	return &respositoryUser{db}
 }
 
-func (ctx respositoryUser) Create(transaction *gorm.DB, data entity.Product) (*entity.Product, error) {
+func (ctx respositoryUser) Create(transaction *gorm.DB, data SQLEntity.Floor) (*SQLEntity.Floor, error) {
 	var err error
 
 	if transaction != nil {
@@ -32,13 +32,13 @@ func (ctx respositoryUser) Create(transaction *gorm.DB, data entity.Product) (*e
 	return &data, nil
 }
 
-func (ctx respositoryUser) GetProductByCode(code string) (*entity.Product, error) {
-	var product *entity.Product
+func (ctx respositoryUser) GetFloorByNumber(number int) (*SQLEntity.Floor, error) {
+	var floor *SQLEntity.Floor
 	res := ctx.DB.Where(
-		&entity.Product{
-			ProductCode: code,
+		&SQLEntity.Floor{
+			Number: number,
 		},
-	).First(&product)
+	).First(&floor)
 	err := res.Error
 
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -49,5 +49,5 @@ func (ctx respositoryUser) GetProductByCode(code string) (*entity.Product, error
 		return nil, nil
 	}
 
-	return product, nil
+	return floor, nil
 }

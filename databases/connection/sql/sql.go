@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"example/commonHelpers"
-	"example/utils"
+	"hotel/commonHelpers"
+	"hotel/utils"
 
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"

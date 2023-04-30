@@ -179,11 +179,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Paxel\Go\src\example\config\routes" />
-      <recent name="C:\Users\Paxel\Go\src\example\http\api" />
-      <recent name="C:\Users\Paxel\Go\src\example\http\repository" />
-      <recent name="C:\Users\Paxel\Go\src\example\http\interfaces" />
-      <recent name="C:\Users\Paxel\Go\src\example\http\response" />
+      <recent name="C:\Users\Paxel\Go\src\hotel\config\routes" />
+      <recent name="C:\Users\Paxel\Go\src\hotel\http\api" />
+      <recent name="C:\Users\Paxel\Go\src\hotel\http\repository" />
+      <recent name="C:\Users\Paxel\Go\src\hotel\http\interfaces" />
+      <recent name="C:\Users\Paxel\Go\src\hotel\http\response" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -199,13 +199,13 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="go build example" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
-      <module name="example" />
+    <configuration name="go build hotel" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="hotel" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
       <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/" />
-      <package value="example" />
+      <package value="hotel" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>

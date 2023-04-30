@@ -1,5 +1,5 @@
 ## - Installations
-- clone repository dan rename main folder menjadi **example** atau sesuaikan dengan nama project jika digunakan untuk suatu project.
+- clone repository dan rename main folder menjadi **hotel** atau sesuaikan dengan nama project jika digunakan untuk suatu project.
 - branch master adalah branch referensi untuk experiment jadi sebelum merge atau push ke branch ini harus melalui **persetujuan sidang isbat**.
 - gunakan branch **baseProject** untuk referensi awal dalam membuat project baru dengan default database **SQL Server**. **baseProjectMongoDB** untuk default database **mongoDB** dan seterunsnya. 
 - dalam branch ini ada folder documentations. isi nya adalah catetan yang kira2 diperlukan dalam project ini.

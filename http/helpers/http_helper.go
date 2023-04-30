@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"reflect"
 
-	response "example/http/responses"
-	"example/utils"
+	response "hotel/http/responses"
+	"hotel/utils"
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/labstack/echo/v4"

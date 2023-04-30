@@ -9,7 +9,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 
-	"example/commonHelpers"
+	"hotel/commonHelpers"
 )
 
 type JWTSession struct {

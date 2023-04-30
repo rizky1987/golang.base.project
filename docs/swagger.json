@@ -1,20 +1,19 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {},
-        "license": {}
+        "contact": {}
     },
     "paths": {
-        "/api/cms/v1/product/create": {
+        "/api/cms/v1/floor/create": {
             "post": {
-                "description": "Product Create",
+                "description": "Floor Create",
                 "consumes": [
                     "multipart/form-data"
                 ],
                 "tags": [
-                    "Product"
+                    "Floor"
                 ],
-                "operationId": "ProductCreate",
+                "operationId": "FloorCreate",
                 "parameters": [
                     {
                         "type": "string",
@@ -24,34 +23,22 @@
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "productCode",
-                        "name": "productCode",
+                        "type": "integer",
+                        "description": "number",
+                        "name": "number",
                         "in": "formData",
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "dosageDescription",
-                        "name": "dosageDescription",
+                        "type": "integer",
+                        "description": "roomTypeId",
+                        "name": "roomTypeId",
                         "in": "formData"
                     },
                     {
-                        "type": "string",
-                        "description": "usabilityDescription",
-                        "name": "usabilityDescription",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "description": "composition",
-                        "name": "composition",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "description": "howToUseDescription",
-                        "name": "howToUseDescription",
+                        "type": "integer",
+                        "description": "price",
+                        "name": "price",
                         "in": "formData"
                     }
                 ],
@@ -85,13 +72,9 @@
             "type": "object",
             "properties": {
                 "alert": {
-                    "type": "object",
                     "$ref": "#/definitions/responses.AlertResponse"
                 },
-                "data": {
-                    "type": "object",
-                    "additionalProperties": true
-                }
+                "data": {}
             }
         }
     }
