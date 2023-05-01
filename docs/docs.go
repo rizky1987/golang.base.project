@@ -90,16 +90,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/cms/v1/room-type/create": {
+        "/api/cms/v1/room-price/create": {
             "post": {
-                "description": "RoomType Create",
+                "description": "RoomPrice Create",
                 "consumes": [
                     "multipart/form-data"
                 ],
                 "tags": [
-                    "RoomType"
+                    "RoomPrice"
                 ],
-                "operationId": "RoomTypeCreate",
+                "operationId": "RoomPriceCreate",
                 "parameters": [
                     {
                         "type": "string",
@@ -117,8 +117,22 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "name",
-                        "name": "name",
+                        "description": "type",
+                        "name": "type",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "price",
+                        "name": "price",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "floorId",
+                        "name": "floorId",
                         "in": "formData",
                         "required": true
                     }

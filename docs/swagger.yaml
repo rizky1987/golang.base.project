@@ -96,12 +96,12 @@ paths:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
       - Floor
-  /api/cms/v1/room-type/create:
+  /api/cms/v1/room-price/create:
     post:
       consumes:
       - multipart/form-data
-      description: RoomType Create
-      operationId: RoomTypeCreate
+      description: RoomPrice Create
+      operationId: RoomPriceCreate
       parameters:
       - description: Bearer %
         in: header
@@ -113,9 +113,19 @@ paths:
         name: code
         required: true
         type: string
-      - description: name
+      - description: type
         in: formData
-        name: name
+        name: type
+        required: true
+        type: string
+      - description: price
+        in: formData
+        name: price
+        required: true
+        type: string
+      - description: floorId
+        in: formData
+        name: floorId
         required: true
         type: string
       responses:
@@ -124,7 +134,7 @@ paths:
           schema:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
-      - RoomType
+      - RoomPrice
   /api/cms/v1/room/availibility-room:
     get:
       consumes:

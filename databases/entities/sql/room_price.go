@@ -10,10 +10,12 @@ import (
 )
 
 type (
-	RoomType struct {
+	RoomPrice struct {
 		ID           mssql.UniqueIdentifier `gorm:"column:Id"`
 		Code         string                 `gorm:"column:Code"`
-		Name         string                 `gorm:"column:Name"`
+		Type         string                 `gorm:"column:Type"`
+		Price        string                 `gorm:"column:Price"`
+		FloorId      mssql.UniqueIdentifier `gorm:"column:FloorId"`
 		CreatedBy    string                 `gorm:"column:CreatedBy"`
 		CreatedDate  time.Time              `gorm:"column:CreatedDate"`
 		ModifiedBy   *string                `gorm:"column:ModifiedBy"`
@@ -23,11 +25,11 @@ type (
 	}
 )
 
-func (x RoomType) TableName() string {
-	return "RoomType"
+func (x RoomPrice) TableName() string {
+	return "RoomPrice"
 }
 
-func (u *RoomType) BeforeCreate(tx *gorm.DB) error {
+func (u *RoomPrice) BeforeCreate(tx *gorm.DB) error {
 	u2, err := uuid.NewV4()
 	if err != nil {
 		errors.New("can't save invalid data")

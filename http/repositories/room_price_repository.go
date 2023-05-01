@@ -8,15 +8,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type respositoryRoomType struct {
+type respositoryRoomPrice struct {
 	DB *gorm.DB
 }
 
-func NewRoomTypeRepository(db *gorm.DB) interfaces.RoomTypeInterface {
-	return &respositoryRoomType{db}
+func NewRoomPriceRepository(db *gorm.DB) interfaces.RoomPriceInterface {
+	return &respositoryRoomPrice{db}
 }
 
-func (ctx respositoryRoomType) Create(transaction *gorm.DB, data SQLEntity.RoomType) (*SQLEntity.RoomType, error) {
+func (ctx respositoryRoomPrice) Create(transaction *gorm.DB, data SQLEntity.RoomPrice) (*SQLEntity.RoomPrice, error) {
 	var err error
 
 	if transaction != nil {
@@ -32,13 +32,13 @@ func (ctx respositoryRoomType) Create(transaction *gorm.DB, data SQLEntity.RoomT
 	return &data, nil
 }
 
-func (ctx respositoryRoomType) GetRoomTypeByCode(code string) (*SQLEntity.RoomType, error) {
-	var roomType *SQLEntity.RoomType
+func (ctx respositoryRoomPrice) GetRoomPriceByCode(code string) (*SQLEntity.RoomPrice, error) {
+	var roomPrice *SQLEntity.RoomPrice
 	res := ctx.DB.Where(
-		&SQLEntity.RoomType{
+		&SQLEntity.RoomPrice{
 			Code: code,
 		},
-	).First(&roomType)
+	).First(&roomPrice)
 	err := res.Error
 
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -49,5 +49,5 @@ func (ctx respositoryRoomType) GetRoomTypeByCode(code string) (*SQLEntity.RoomTy
 		return nil, nil
 	}
 
-	return roomType, nil
+	return roomPrice, nil
 }

@@ -10,30 +10,32 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterRoomTypeRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.Config, httpHelper httpHelper.HTTPHelper) {
+func RegisterRoomPriceRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.Config, httpHelper httpHelper.HTTPHelper) {
 
-	group := baseEndpointGroup.Group("/room-type")
+	group := baseEndpointGroup.Group("/room-price")
 	{
-		roomTypeHandler := services.RoomTypeHandler{
-			Config:             config,
-			Helper:             httpHelper,
-			RoomTypeRepository: repositories.NewRoomTypeRepository(db),
-			DB:                 db,
+		roomTypeHandler := services.RoomPriceHandler{
+			Config:              config,
+			Helper:              httpHelper,
+			RoomPriceRepository: repositories.NewRoomPriceRepository(db),
+			DB:                  db,
 		}
 
-		createRoomType(group, roomTypeHandler)
+		createRoomPrice(group, roomTypeHandler)
 	}
 }
 
-// @Tags RoomType
-// @Description RoomType Create
-// @ID RoomTypeCreate
+// @Tags RoomPrice
+// @Description RoomPrice Create
+// @ID RoomPriceCreate
 // @Accept multipart/form-data
 // @param Authorization header string true "Bearer %"
 // @Param code formData string true "code"
-// @Param name formData string true "name"
+// @Param type formData string true "type"
+// @Param price formData string true "price"
+// @Param floorId formData string true "floorId"
 // @Success 200 {object} responses.CommonBaseResponse
-// @Router /api/cms/v1/room-type/create [post]
-func createRoomType(baseEndpointGroup *echo.Group, roomTypeHandler services.RoomTypeHandler) {
+// @Router /api/cms/v1/room-price/create [post]
+func createRoomPrice(baseEndpointGroup *echo.Group, roomTypeHandler services.RoomPriceHandler) {
 	baseEndpointGroup.POST("/create", roomTypeHandler.CreateHandler)
 }

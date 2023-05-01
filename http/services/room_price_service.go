@@ -15,17 +15,17 @@ import (
 	SQLEntity "hotel/databases/entities/sql"
 )
 
-type RoomTypeHandler struct {
-	DB                 *gorm.DB
-	Helper             helpers.HTTPHelper
-	Config             env.Config
-	RoomTypeRepository interfaces.RoomTypeInterface
+type RoomPriceHandler struct {
+	DB                  *gorm.DB
+	Helper              helpers.HTTPHelper
+	Config              env.Config
+	RoomPriceRepository interfaces.RoomPriceInterface
 }
 
-func (_h *RoomTypeHandler) CreateHandler(ctx echo.Context) error {
+func (_h *RoomPriceHandler) CreateHandler(ctx echo.Context) error {
 	var (
 		err   error
-		input requests.CreateRoomTypeRequest
+		input requests.CreateRoomPriceRequest
 	)
 
 	sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
@@ -45,32 +45,40 @@ func (_h *RoomTypeHandler) CreateHandler(ctx echo.Context) error {
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	dataCurrentRoomType, err := _h.RoomTypeRepository.GetRoomTypeByCode(input.Code)
+	floorId, err := commonHelpers.StringToNewUUID(input.FloorId)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
+	dataCurrentRoomPrice, err := _h.RoomPriceRepository.GetRoomPriceByCode(input.Code)
 	if err != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	if dataCurrentRoomType != nil {
+	if dataCurrentRoomPrice != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
-		return _h.Helper.SendDuplicateError(ctx, "RoomType", input.Code, fileLocation, fileLine)
+		return _h.Helper.SendDuplicateError(ctx, "RoomPrice", input.Code, fileLocation, fileLine)
 	}
 
-	roomType := SQLEntity.RoomType{
+	roomPrice := SQLEntity.RoomPrice{
 		Code:        input.Code,
-		Name:        input.Name,
+		Type:        input.Type,
+		FloorId:     floorId,
+		Price:       input.Price,
 		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 
-	_, err = _h.RoomTypeRepository.Create(nil, roomType)
+	_, err = _h.RoomPriceRepository.Create(nil, roomPrice)
 	if err != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	return _h.Helper.SendSuccess(ctx, "Create", "RoomType", "Code", input.Code)
+	return _h.Helper.SendSuccess(ctx, "Create", "RoomPrice", "Code", input.Code)
 }

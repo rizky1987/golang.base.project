@@ -58,7 +58,7 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 	{
 		version1 := baseEndpointGroup.Group("/v1")
 		{
-			routes.RegisterRoomTypeRoutes(version1, sql.DB, h.Config, h.Helper)
+			routes.RegisterRoomPriceRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterFloorRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterRoomRoutes(version1, sql.DB, h.Config, h.Helper)
 			routes.RegisterBookingRoutes(version1, sql.DB, h.Config, h.Helper)
