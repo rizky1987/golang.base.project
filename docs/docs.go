@@ -238,8 +238,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "floorId",
-                        "name": "floorId",
+                        "description": "roomPriceId",
+                        "name": "roomPriceId",
                         "in": "formData",
                         "required": true
                     },

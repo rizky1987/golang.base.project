@@ -31,7 +31,7 @@ func RegisterRoomRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.C
 // @ID RoomCreate
 // @Accept multipart/form-data
 // @param Authorization header string true "Bearer %"
-// @Param floorId formData string true "floorId"
+// @Param roomPriceId formData string true "roomPriceId"
 // @Param code formData string true "code"
 // @Param number formData int true "number"
 // @Success 200 {object} responses.CommonBaseResponse

@@ -12,7 +12,7 @@ import (
 type (
 	Room struct {
 		ID           mssql.UniqueIdentifier `gorm:"column:Id"`
-		FloorId      mssql.UniqueIdentifier `gorm:"column:FloorId"`
+		RoomPriceId  mssql.UniqueIdentifier `gorm:"column:RoomPriceId"`
 		Code         string                 `gorm:"column:Code"`
 		Number       int                    `gorm:"column:Number"`
 		CreatedBy    string                 `gorm:"column:CreatedBy"`

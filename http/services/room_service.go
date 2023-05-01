@@ -59,14 +59,14 @@ func (_h *RoomHandler) CreateHandler(ctx echo.Context) error {
 		return _h.Helper.SendDuplicateError(ctx, "Room", input.Code, fileLocation, fileLine)
 	}
 
-	floorId, err := commonHelpers.StringToNewUUID(input.FloorId)
+	roomPriceId, err := commonHelpers.StringToNewUUID(input.RoomPriceId)
 	if err != nil {
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
 	room := SQLEntity.Room{
-		FloorId:     floorId,
+		RoomPriceId: roomPriceId,
 		Code:        input.Code,
 		Number:      input.Number,
 		CreatedBy:   sessionData.Username,

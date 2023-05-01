@@ -6,10 +6,10 @@ import (
 )
 
 type RoomResponse struct {
-	ID      string `json:"Id"`
-	FloorId string `json:"floorId"`
-	Code    string `json:"code"`
-	Number  int    `json:"number"`
+	ID          string `json:"Id"`
+	RoomPriceId string `json:"roomPriceId"`
+	Code        string `json:"code"`
+	Number      int    `json:"number"`
 }
 
 type RoomSuccessResponse struct {
