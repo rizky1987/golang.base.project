@@ -34,6 +34,14 @@ type (
 		RoomTypeCode string                 `gorm:"column:RoomTypeCode"`
 		RoomTypeName string                 `gorm:"column:RoomTypeName"`
 	}
+
+	TempAvaibilityRoom struct {
+		FloorNumber  int    `gorm:"column:FloorNumber"`
+		RoomNumber   int    `gorm:"column:RoomNumber"`
+		RoomTypeName string `gorm:"column:RoomTypeName"`
+		FloorPrice   int    `gorm:"column:FloorPrice"`
+		IsBooked     int    `gorm:"column:IsBooked"`
+	}
 )
 
 func (x Room) TableName() string {

@@ -6,6 +6,7 @@ import (
 	"hotel/http/helpers"
 	"hotel/http/interfaces"
 	"hotel/http/requests"
+	"hotel/http/responses"
 	"runtime"
 
 	"github.com/labstack/echo/v4"
@@ -80,4 +81,54 @@ func (_h *RoomHandler) CreateHandler(ctx echo.Context) error {
 	}
 
 	return _h.Helper.SendSuccess(ctx, "Create", "Room", "Code", input.Code)
+}
+
+func (_h *RoomHandler) GetAvailibilityRoom(ctx echo.Context) error {
+	var (
+		err error
+	)
+
+	// _, err = _h.Helper.ValidateCMSJWTData(ctx)
+	// if err != nil {
+	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
+	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine, 0)
+	// }
+
+	startDate := ctx.QueryParam("startDate")
+	endDate := ctx.QueryParam("endDate")
+
+	floorNumber, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("floorNumber"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
+	roomNumber, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("roomNumber"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
+	roomTypeName := ctx.QueryParam("roomTypeName")
+	startFloorPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("startFloorPrice"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
+	endfloorPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("endfloorPrice"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
+	tempAvaibilityRooms, err := _h.RoomRepository.GetAvailibilityRooms(
+		startDate, endDate, floorNumber, roomNumber, roomTypeName, startFloorPrice, endfloorPrice)
+	if err != nil {
+
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendDatabaseError(ctx, err.Error(), fileLocation, fileLine)
+	}
+	results := responses.ConvertAvailibilityRoomEntityToResponse(tempAvaibilityRooms)
+	return _h.Helper.SendAllDataSuccess(ctx, "Success", results)
 }

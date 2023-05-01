@@ -2,6 +2,7 @@ package commonHelpers
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 	"time"
 
@@ -47,4 +48,16 @@ func ConvertStringToDateTimeNullAble(dateInString string) (*time.Time, error) {
 	}
 
 	return nil, nil
+}
+
+func ConvertStringToInteger(inputString string) (int, error) {
+	if TrimWhiteSpace(inputString) == "" {
+
+		return 0, nil
+	}
+	if i, err := strconv.Atoi(inputString); err == nil {
+		return i, err
+	}
+
+	return 0, nil
 }

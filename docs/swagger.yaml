@@ -135,6 +135,53 @@ paths:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
       - RoomType
+  /api/cms/v1/room/availibility-room:
+    get:
+      consumes:
+      - multipart/form-data
+      description: Room Get Availibility Room
+      operationId: RoomGetAvailibilityRoom
+      parameters:
+      - description: Bearer %
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - description: floorNumber
+        in: query
+        name: floorNumber
+        type: integer
+      - description: roomNumber
+        in: query
+        name: roomNumber
+        type: integer
+      - description: roomTypeName
+        in: query
+        name: roomTypeName
+        type: string
+      - description: startFloorPrice
+        in: query
+        name: startFloorPrice
+        type: integer
+      - description: endfloorPrice
+        in: query
+        name: endfloorPrice
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - Room
   /api/cms/v1/room/create:
     post:
       consumes:

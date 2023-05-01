@@ -147,6 +147,77 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/cms/v1/room/availibility-room": {
+            "get": {
+                "description": "Room Get Availibility Room",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "Room"
+                ],
+                "operationId": "RoomGetAvailibilityRoom",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer %",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "startDate",
+                        "name": "startDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "endDate",
+                        "name": "endDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "floorNumber",
+                        "name": "floorNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "roomNumber",
+                        "name": "roomNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "roomTypeName",
+                        "name": "roomTypeName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "startFloorPrice",
+                        "name": "startFloorPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "endfloorPrice",
+                        "name": "endfloorPrice",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/cms/v1/room/create": {
             "post": {
                 "description": "Room Create",

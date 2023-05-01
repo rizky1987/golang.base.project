@@ -22,6 +22,7 @@ func RegisterRoomRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.C
 		}
 
 		createRoom(group, roomHandler)
+		getAvailibilityRoom(group, roomHandler)
 	}
 }
 
@@ -37,4 +38,22 @@ func RegisterRoomRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.C
 // @Router /api/cms/v1/room/create [post]
 func createRoom(baseEndpointGroup *echo.Group, roomHandler services.RoomHandler) {
 	baseEndpointGroup.POST("/create", roomHandler.CreateHandler)
+}
+
+// @Tags Room
+// @Description Room Get Availibility Room
+// @ID RoomGetAvailibilityRoom
+// @Accept multipart/form-data
+// @param Authorization header string true "Bearer %"
+// @Param startDate query string false "startDate"
+// @Param endDate query string false "endDate"
+// @Param floorNumber query int false "floorNumber"
+// @Param roomNumber query int false "roomNumber"
+// @Param roomTypeName query string false "roomTypeName"
+// @Param startFloorPrice query int false "startFloorPrice"
+// @Param endfloorPrice query int false "endfloorPrice"
+// @Success 200 {object} responses.CommonBaseResponse
+// @Router /api/cms/v1/room/availibility-room [get]
+func getAvailibilityRoom(baseEndpointGroup *echo.Group, roomHandler services.RoomHandler) {
+	baseEndpointGroup.GET("/availibility-room", roomHandler.GetAvailibilityRoom)
 }
