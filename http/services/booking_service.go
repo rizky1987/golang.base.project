@@ -87,7 +87,7 @@ func (_h *BookingHandler) CreateHandler(ctx echo.Context) error {
 	bookingEntity := &SQLEntity.Booking{
 		ID:          commonHelpers.GenerateNewUUID(),
 		Code:        bookingCode,
-		BookedName:  input.BookedName,
+		BookedBy:    input.BookedBy,
 		DownPayment: input.DownPayment,
 		StartDate:   *startDate,
 		EndDate:     *endDate,
@@ -253,7 +253,7 @@ func (_h *BookingHandler) validateRoomIds(bookingId mssql.UniqueIdentifier,
 				bookingDetail = &SQLEntity.BookingDetail{
 					BookingId: bookingId,
 					RoomId:    tempRoomDetails[k].RoomId,
-					Price:     tempRoomDetails[k].FloorPrice,
+					Price:     tempRoomDetails[k].RoomPricePrice,
 				}
 
 				totalPrice += bookingDetail.Price

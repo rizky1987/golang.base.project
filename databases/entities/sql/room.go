@@ -24,23 +24,22 @@ type (
 	}
 
 	TempRoomDetail struct {
-		RoomId       mssql.UniqueIdentifier `gorm:"column:RoomId"`
-		RoomCode     string                 `gorm:"column:RoomCode"`
-		RoomNumber   int                    `gorm:"column:RoomNumber"`
-		FloorId      mssql.UniqueIdentifier `gorm:"column:FloorId"`
-		FloorNumber  int                    `gorm:"column:FloorNumber"`
-		FloorPrice   int                    `gorm:"column:FloorPrice"`
-		RoomTypeId   mssql.UniqueIdentifier `gorm:"column:RoomTypeId"`
-		RoomTypeCode string                 `gorm:"column:RoomTypeCode"`
-		RoomTypeName string                 `gorm:"column:RoomTypeName"`
+		RoomId         mssql.UniqueIdentifier `gorm:"column:RoomId"`
+		RoomCode       string                 `gorm:"column:RoomCode"`
+		RoomNumber     int                    `gorm:"column:RoomNumber"`
+		FloorId        mssql.UniqueIdentifier `gorm:"column:FloorId"`
+		RoomPricePrice int                    `gorm:"column:RoomPricePrice"`
+		RoomTypeId     mssql.UniqueIdentifier `gorm:"column:RoomTypeId"`
+		RoomTypeCode   string                 `gorm:"column:RoomTypeCode"`
+		RoomTypeName   string                 `gorm:"column:RoomTypeName"`
 	}
 
 	TempAvaibilityRoom struct {
-		FloorNumber  int    `gorm:"column:FloorNumber"`
-		RoomNumber   int    `gorm:"column:RoomNumber"`
-		RoomTypeName string `gorm:"column:RoomTypeName"`
-		FloorPrice   int    `gorm:"column:FloorPrice"`
-		IsBooked     int    `gorm:"column:IsBooked"`
+		FloorNumber    int    `gorm:"column:FloorNumber"`
+		RoomNumber     int    `gorm:"column:RoomNumber"`
+		RoomPriceType  string `gorm:"column:RoomPriceType"`
+		RoomPricePrice int    `gorm:"column:RoomPricePrice"`
+		IsBooked       int    `gorm:"column:IsBooked"`
 	}
 )
 

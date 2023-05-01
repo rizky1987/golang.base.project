@@ -198,13 +198,13 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "startFloorPrice",
-                        "name": "startFloorPrice",
+                        "name": "startPrice",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "endfloorPrice",
-                        "name": "endfloorPrice",
+                        "name": "endPrice",
                         "in": "query"
                     }
                 ],
@@ -356,14 +356,14 @@ const docTemplate = `{
         "requests.CreateBookingRequest": {
             "type": "object",
             "required": [
-                "bookedName",
+                "BookedBy",
                 "bookingDetails",
                 "downPayment",
                 "endDate",
                 "startDate"
             ],
             "properties": {
-                "bookedName": {
+                "BookedBy": {
                     "type": "string"
                 },
                 "bookingDetails": {

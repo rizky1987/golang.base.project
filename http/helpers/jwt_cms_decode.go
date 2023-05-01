@@ -64,7 +64,6 @@ func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
 			return dataJwt, errors.New("there is something when Decrypt data")
 		}
 
-		fmt.Println(string(plaintext))
 		err = json.Unmarshal(plaintext, &dataJwt)
 		if err != nil {
 			return dataJwt, errors.New("there is something when Unmarshal data")

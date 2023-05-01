@@ -123,20 +123,20 @@ func (_h *RoomHandler) GetAvailibilityRoom(ctx echo.Context) error {
 	}
 
 	roomTypeName := ctx.QueryParam("roomTypeName")
-	startFloorPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("startFloorPrice"))
+	startPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("startPrice"))
 	if err != nil {
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
-	endfloorPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("endfloorPrice"))
+	endPrice, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("endPrice"))
 	if err != nil {
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
 	}
 
 	tempAvaibilityRooms, err := _h.RoomRepository.GetAvailibilityRooms(
-		startDate, endDate, floorNumber, roomNumber, roomTypeName, startFloorPrice, endfloorPrice)
+		startDate, endDate, floorNumber, roomNumber, roomTypeName, startPrice, endPrice)
 	if err != nil {
 
 		_, fileLocation, fileLine, _ := runtime.Caller(0)

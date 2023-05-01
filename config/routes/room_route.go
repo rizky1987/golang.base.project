@@ -50,8 +50,8 @@ func createRoom(baseEndpointGroup *echo.Group, roomHandler services.RoomHandler)
 // @Param floorNumber query int false "floorNumber"
 // @Param roomNumber query int false "roomNumber"
 // @Param roomTypeName query string false "roomTypeName"
-// @Param startFloorPrice query int false "startFloorPrice"
-// @Param endfloorPrice query int false "endfloorPrice"
+// @Param startPrice query int false "startFloorPrice"
+// @Param endPrice query int false "endfloorPrice"
 // @Success 200 {object} responses.CommonBaseResponse
 // @Router /api/cms/v1/room/availibility-room [get]
 func getAvailibilityRoom(baseEndpointGroup *echo.Group, roomHandler services.RoomHandler) {

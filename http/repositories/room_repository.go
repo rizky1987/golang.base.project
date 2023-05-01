@@ -64,13 +64,13 @@ func (ctx respositoryRoom) GetRoomDetailByRoomIds(roomIds []string) ([]*SQLEntit
 						r.Number as RoomNumber,
 						f.Id as FloorId,
 						f.Number as FloorNumber,
-						f.Price as FloorPrice,
-						rt.Id as RoomTypeId,
-						rt.Code as RoomTypeCode,
-						rt.[Name] as RoomTypeName 
+						rp.Price as RoomPricePrice,
+						rp.Id as RoomTypeId,
+						rp.Code as RoomTypeCode,
+						rp.[Type] as RoomTypeName 
 					FROM Room r
-						left join [Floor] f on r.FloorId = f.Id
-						left join [RoomType] rt on f.RoomTypeId = rt.Id
+						left join RoomPrice rp on rp.Id = r.RoomPriceId
+						left join [Floor] f on rp.FloorId = f.Id
 						WHERE r.Id in (?) `, strings.Join(roomIds, ",")).
 		Find(&results).Error
 
@@ -86,18 +86,18 @@ func (ctx respositoryRoom) GetRoomDetailByRoomIds(roomIds []string) ([]*SQLEntit
 }
 
 func (ctx respositoryRoom) GetAvailibilityRooms(stardDate, endDate string,
-	floorNumber, roomNumber int, roomTypeName string, startFloorPrice, endfloorPrice int) ([]*SQLEntity.TempAvaibilityRoom, error) {
+	floorNumber, roomNumber int, roomTypeName string, startPrice, endPrice int) ([]*SQLEntity.TempAvaibilityRoom, error) {
 
 	var err error
 	var results []*SQLEntity.TempAvaibilityRoom
 
-	additionalQuery := additionalQueryAvailibilityRoom(floorNumber, roomNumber, roomTypeName, startFloorPrice, endfloorPrice)
+	additionalQuery := additionalQueryAvailibilityRoom(floorNumber, roomNumber, roomTypeName, startPrice, endPrice)
 
 	err = ctx.DB.Raw(`SELECT 
 						masterData.FloorNumber,
 						masterData.RoomNumber,
-						masterData.RoomTypeName,
-						masterData.FloorPrice,
+						masterData.RoomPriceType,
+						masterData.RoomPricePrice,
 						(
 							CASE
 								WHEN masterData.RoomId = transactionData.RoomId 
@@ -108,15 +108,14 @@ func (ctx respositoryRoom) GetAvailibilityRooms(stardDate, endDate string,
 					FROM
 					(
 						SELECT 
-						f.Number as FloorNumber,
-						f.Price as FloorPrice,
-						r.Code as RoomCode,
-						r.Id as RoomId,
-						r.Number as RoomNumber,
-						rt.[Name] as RoomTypeName
+							f.Number as FloorNumber,
+							r.Id as RoomId,
+							r.Number as RoomNumber,
+							rp.[Type] as RoomPriceType,
+							rp.Price as RoomPricePrice
 						FROM Room r 
-						left join [Floor] f on f.Id = r.FloorId
-						left join RoomType rt on rt.Id = f.RoomTypeId
+							left join RoomPrice rp on rp.Id = r.RoomPriceId
+							left join [Floor] f on rp.FloorId = f.Id
 					)  masterData
 					left join
 					(
@@ -144,7 +143,7 @@ func (ctx respositoryRoom) GetAvailibilityRooms(stardDate, endDate string,
 }
 
 func additionalQueryAvailibilityRoom(floorNumber, roomNumber int, roomTypeName string,
-	startFloorPrice, endfloorPrice int) string {
+	startPrice, endPrice int) string {
 
 	result := ""
 	addtionalQueries := []string{}
@@ -157,15 +156,15 @@ func additionalQueryAvailibilityRoom(floorNumber, roomNumber int, roomTypeName s
 	}
 
 	if roomTypeName != "" {
-		addtionalQueries = append(addtionalQueries, fmt.Sprintf("lower(masterData.RoomTypeName) like lower('%s')", roomTypeName))
+		addtionalQueries = append(addtionalQueries, fmt.Sprintf("lower(masterData.RoomPriceType) like lower('%s')", roomTypeName))
 	}
 
-	if startFloorPrice > 0 && endfloorPrice > 0 {
-		addtionalQueries = append(addtionalQueries, fmt.Sprintf("masterData.FloorPrice Between %d and %d", startFloorPrice, endfloorPrice))
+	if startPrice > 0 && endPrice > 0 {
+		addtionalQueries = append(addtionalQueries, fmt.Sprintf("masterData.RoomPricePrice Between %d and %d", startPrice, endPrice))
 	}
 
 	if len(addtionalQueries) > 0 {
-		result = fmt.Sprintf("WHERE %s", strings.Join(addtionalQueries, " AND"))
+		result = fmt.Sprintf("WHERE %s", strings.Join(addtionalQueries, " AND "))
 	}
 
 	return result

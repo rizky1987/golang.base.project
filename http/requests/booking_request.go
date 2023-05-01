@@ -5,7 +5,7 @@ type (
 		StartDate        string                        `json:"startDate" validate:"required"`
 		EndDate          string                        `json:"endDate" validate:"required"`
 		DownPayment      int                           `json:"downPayment" validate:"required"`
-		BookedName       string                        `json:"bookedName" validate:"required"`
+		BookedBy         string                        `json:"BookedBy" validate:"required"`
 		IsTimeRulesAgree bool                          `json:"isTimeRulesAgree"`
 		BookingDetails   []*CreateBookingDetailRequest `json:"bookingDetails" validate:"required"`
 	}

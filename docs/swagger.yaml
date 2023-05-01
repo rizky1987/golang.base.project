@@ -8,7 +8,7 @@ definitions:
     type: object
   requests.CreateBookingRequest:
     properties:
-      bookedName:
+      BookedBy:
         type: string
       bookingDetails:
         items:
@@ -23,7 +23,7 @@ definitions:
       startDate:
         type: string
     required:
-    - bookedName
+    - BookedBy
     - bookingDetails
     - downPayment
     - endDate
@@ -169,11 +169,11 @@ paths:
         type: string
       - description: startFloorPrice
         in: query
-        name: startFloorPrice
+        name: startPrice
         type: integer
       - description: endfloorPrice
         in: query
-        name: endfloorPrice
+        name: endPrice
         type: integer
       responses:
         "200":

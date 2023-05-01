@@ -27,10 +27,10 @@ type Floor struct {
 }
 
 type Room struct {
-	RoomNumber   int    `json:"roomNumber"`
-	RoomTypeName string `json:"roomTypeName"`
-	FloorPrice   int    `json:"price"`
-	IsBooked     bool   `json:"isBooked"`
+	RoomNumber     int    `json:"roomNumber"`
+	RoomPriceType  string `json:"roomType"`
+	RoomPricePrice int    `json:"roomPrice"`
+	IsBooked       bool   `json:"isBooked"`
 }
 
 type TempRoomSuccessResponse struct {
@@ -51,10 +51,10 @@ func AddFloorResponse(data *SQLEntity.TempAvaibilityRoom) *Floor {
 func AddRoomResponse(data *SQLEntity.TempAvaibilityRoom) *Room {
 
 	floorResponse := &Room{
-		RoomNumber:   data.RoomNumber,
-		RoomTypeName: data.RoomTypeName,
-		FloorPrice:   data.FloorPrice,
-		IsBooked:     commonHelpers.ConvertIntegerToBoolen(data.IsBooked),
+		RoomNumber:     data.RoomNumber,
+		RoomPriceType:  data.RoomPriceType,
+		RoomPricePrice: data.RoomPricePrice,
+		IsBooked:       commonHelpers.ConvertIntegerToBoolen(data.IsBooked),
 	}
 
 	return floorResponse
@@ -65,6 +65,7 @@ func ConvertAvailibilityRoomEntityToResponse(TempAvaibilityRooms []*SQLEntity.Te
 	result := &TempRoomSuccessResponse{
 		ITotalDisplayRecords: len(TempAvaibilityRooms),
 		ITotalRecords:        len(TempAvaibilityRooms),
+		Floors:               []*Floor{},
 	}
 	previousFloorNumber := -1
 	floorNumberCount := -1

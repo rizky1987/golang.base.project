@@ -59,7 +59,7 @@ func (ctx respositoryBooking) GetBookingRoomAvaibility(roomIds []string, startDa
 
 	err = ctx.DB.Raw(`SELECT 
 						b.Code as BookingCode,
-						b.BookedName as BookingName,
+						b.BookedBy as BookedBy,
 						b.StartDate as BookingStartDate,
 						b.EndDate as BookingEndDate,
 						r.Code as RoomCode

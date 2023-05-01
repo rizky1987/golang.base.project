@@ -17,7 +17,7 @@ type (
 		EndDate      time.Time              `gorm:"column:EndDate"`
 		DownPayment  int                    `gorm:"column:DownPayment"`
 		IsPaidOff    bool                   `gorm:"column:IsPaidOff"`
-		BookedName   string                 `gorm:"column:BookedName"`
+		BookedBy     string                 `gorm:"column:BookedBy"`
 		CreatedBy    string                 `gorm:"column:CreatedBy"`
 		CreatedDate  time.Time              `gorm:"column:CreatedDate"`
 		ModifiedBy   *string                `gorm:"column:ModifiedBy"`
@@ -28,7 +28,7 @@ type (
 
 	TempBookingRoomAvaibility struct {
 		BookingCode      string    `gorm:"column:BookingCode"`
-		BookedName       string    `gorm:"column:BookedName"`
+		BookedBy         string    `gorm:"column:BookedBy"`
 		BookingStartDate time.Time `gorm:"column:BookingStartDate"`
 		BookingEndDate   time.Time `gorm:"column:BookingEndDate"`
 		RoomCode         string    `gorm:"column:RoomCode"`
