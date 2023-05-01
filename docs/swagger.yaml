@@ -216,4 +216,52 @@ paths:
             $ref: '#/definitions/responses.CommonBaseResponse'
       tags:
       - Room
+  /api/cms/v1/user/create:
+    post:
+      consumes:
+      - multipart/form-data
+      description: User Create
+      operationId: UserCreate
+      parameters:
+      - description: username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - User
+  /api/cms/v1/user/login:
+    post:
+      consumes:
+      - multipart/form-data
+      description: User Login
+      operationId: UserLogin
+      parameters:
+      - description: username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.CommonBaseResponse'
+      tags:
+      - User
 swagger: "2.0"

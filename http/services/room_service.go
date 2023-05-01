@@ -95,7 +95,20 @@ func (_h *RoomHandler) GetAvailibilityRoom(ctx echo.Context) error {
 	// }
 
 	startDate := ctx.QueryParam("startDate")
+
+	_, err = commonHelpers.ConvertStringToDateFormatYYYYMMDD(ctx.QueryParam("startDate"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
+
 	endDate := ctx.QueryParam("endDate")
+
+	_, err = commonHelpers.ConvertStringToDateFormatYYYYMMDD(ctx.QueryParam("endDate"))
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	floorNumber, err := commonHelpers.ConvertStringToInteger(ctx.QueryParam("floorNumber"))
 	if err != nil {

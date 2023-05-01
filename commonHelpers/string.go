@@ -7,6 +7,7 @@ import (
 	"time"
 
 	mssql "github.com/denisenkom/go-mssqldb"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func StringSplitToArrayString(inputString, delimiter string) []string {
@@ -60,4 +61,15 @@ func ConvertStringToInteger(inputString string) (int, error) {
 	}
 
 	return 0, nil
+}
+
+func ConvertStringToBCrypt(input string) (string, error) {
+
+	password := []byte(string(input))
+	password, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+
+	return string(password), nil
 }

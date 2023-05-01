@@ -267,6 +267,78 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/cms/v1/user/create": {
+            "post": {
+                "description": "User Create",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "operationId": "UserCreate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "username",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cms/v1/user/login": {
+            "post": {
+                "description": "User Login",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "operationId": "UserLogin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "username",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.CommonBaseResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

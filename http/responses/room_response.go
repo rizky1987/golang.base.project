@@ -34,8 +34,8 @@ type Room struct {
 }
 
 type TempRoomSuccessResponse struct {
-	ITotalRecords        int      `json:"iTotalRecords"`
-	ITotalDisplayRecords int      `json:"iDisplayRecords"`
+	ITotalRecords        int      `json:"totalRecords"`
+	ITotalDisplayRecords int      `json:"displayRecords"`
 	Floors               []*Floor `json:"floors"`
 }
 
