@@ -59,16 +59,8 @@ func (_h *FloorHandler) CreateHandler(ctx echo.Context) error {
 		return _h.Helper.SendDuplicateError(ctx, "Floor", fmt.Sprintf("%d", dataCurrentFloor.Number), fileLocation, fileLine)
 	}
 
-	roomTypeId, err := commonHelpers.StringToNewUUID(input.RoomTypeId)
-	if err != nil {
-		_, fileLocation, fileLine, _ := runtime.Caller(0)
-		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
-	}
-
 	floor := SQLEntity.Floor{
-		RoomTypeId:  roomTypeId,
 		Number:      input.Number,
-		Price:       input.Price,
 		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}

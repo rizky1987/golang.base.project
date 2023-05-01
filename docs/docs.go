@@ -78,20 +78,6 @@ const docTemplate = `{
                         "name": "number",
                         "in": "formData",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "roomTypeId",
-                        "name": "roomTypeId",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "price",
-                        "name": "price",
-                        "in": "formData",
-                        "required": true
                     }
                 ],
                 "responses": {

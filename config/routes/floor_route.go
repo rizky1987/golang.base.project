@@ -31,8 +31,6 @@ func RegisterFloorRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.
 // @Accept multipart/form-data
 // @param Authorization header string true "Bearer %"
 // @Param number formData int true "number"
-// @Param roomTypeId formData string true "roomTypeId"
-// @Param price formData int true "price"
 // @Success 200 {object} responses.CommonBaseResponse
 // @Router /api/cms/v1/floor/create [post]
 func createFloor(baseEndpointGroup *echo.Group, floorHandler services.FloorHandler) {

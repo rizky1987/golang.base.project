@@ -89,16 +89,6 @@ paths:
         name: number
         required: true
         type: integer
-      - description: roomTypeId
-        in: formData
-        name: roomTypeId
-        required: true
-        type: string
-      - description: price
-        in: formData
-        name: price
-        required: true
-        type: integer
       responses:
         "200":
           description: OK
