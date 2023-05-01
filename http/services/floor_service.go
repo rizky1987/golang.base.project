@@ -29,11 +29,11 @@ func (_h *FloorHandler) CreateHandler(ctx echo.Context) error {
 		input requests.CreateFloorRequest
 	)
 
-	// sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
-	// if err != nil {
-	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
-	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
-	// }
+	sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	err = ctx.Bind(&input)
 	if err != nil {
@@ -69,7 +69,7 @@ func (_h *FloorHandler) CreateHandler(ctx echo.Context) error {
 		RoomTypeId:  roomTypeId,
 		Number:      input.Number,
 		Price:       input.Price,
-		CreatedBy:   "test",
+		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 

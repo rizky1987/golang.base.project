@@ -35,11 +35,11 @@ func (_h *BookingHandler) CreateHandler(ctx echo.Context) error {
 		input requests.CreateBookingRequest
 	)
 
-	// sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
-	// if err != nil {
-	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
-	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
-	// }
+	sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	err = ctx.Bind(&input)
 	if err != nil {
@@ -91,7 +91,7 @@ func (_h *BookingHandler) CreateHandler(ctx echo.Context) error {
 		DownPayment: input.DownPayment,
 		StartDate:   *startDate,
 		EndDate:     *endDate,
-		CreatedBy:   "test",
+		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 

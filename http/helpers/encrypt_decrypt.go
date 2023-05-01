@@ -1,4 +1,4 @@
-package commonHelpers
+package helpers
 
 import (
 	"crypto/aes"

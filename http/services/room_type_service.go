@@ -28,11 +28,11 @@ func (_h *RoomTypeHandler) CreateHandler(ctx echo.Context) error {
 		input requests.CreateRoomTypeRequest
 	)
 
-	// sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
-	// if err != nil {
-	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
-	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
-	// }
+	sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	err = ctx.Bind(&input)
 	if err != nil {
@@ -61,7 +61,7 @@ func (_h *RoomTypeHandler) CreateHandler(ctx echo.Context) error {
 	roomType := SQLEntity.RoomType{
 		Code:        input.Code,
 		Name:        input.Name,
-		CreatedBy:   "test",
+		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 

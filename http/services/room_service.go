@@ -29,11 +29,11 @@ func (_h *RoomHandler) CreateHandler(ctx echo.Context) error {
 		input requests.CreateRoomRequest
 	)
 
-	// sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
-	// if err != nil {
-	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
-	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
-	// }
+	sessionData, err := _h.Helper.ValidateCMSJWTData(ctx)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	err = ctx.Bind(&input)
 	if err != nil {
@@ -69,7 +69,7 @@ func (_h *RoomHandler) CreateHandler(ctx echo.Context) error {
 		FloorId:     floorId,
 		Code:        input.Code,
 		Number:      input.Number,
-		CreatedBy:   "test",
+		CreatedBy:   sessionData.Username,
 		CreatedDate: commonHelpers.GetCurrentTimeAsiaJakarta(),
 	}
 
@@ -88,11 +88,11 @@ func (_h *RoomHandler) GetAvailibilityRoom(ctx echo.Context) error {
 		err error
 	)
 
-	// _, err = _h.Helper.ValidateCMSJWTData(ctx)
-	// if err != nil {
-	// 	_, fileLocation, fileLine, _ := runtime.Caller(0)
-	// 	return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine, 0)
-	// }
+	_, err = _h.Helper.ValidateCMSJWTData(ctx)
+	if err != nil {
+		_, fileLocation, fileLine, _ := runtime.Caller(0)
+		return _h.Helper.SendUnauthorizedError(ctx, err.Error(), fileLocation, fileLine)
+	}
 
 	startDate := ctx.QueryParam("startDate")
 

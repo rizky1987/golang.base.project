@@ -1,11 +1,12 @@
 package helpers
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"time"
 
+	mssql "github.com/denisenkom/go-mssqldb"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 
@@ -13,16 +14,8 @@ import (
 )
 
 type JWTSession struct {
-	ID         string  `json:"rl-id"`
-	Name       string  `json:"rl-fullname"`
-	RlRole     string  `json:"rl-role"`
-	BranchID   string  `json:"rl-branch-id"`
-	Email      string  `json:"rl-email"`
-	CustomerID string  `json:"rl-customer-id"`
-	Role       string  `json:"role"`
-	Nbf        float64 `json:"nbf"`
-	Exp        float64 `json:"exp"`
-	Iat        float64 `json:"iat"`
+	ID       mssql.UniqueIdentifier `json:"ID"`
+	Username string                 `json:"Username"`
 }
 
 func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
@@ -32,11 +25,13 @@ func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
 	authorizationSplits := commonHelpers.StringSplitToArrayString(jwtString, "Bearer")
 
 	if len(authorizationSplits) < 2 {
+
 		return dataJwt, errors.New("Please input your token")
 	}
 
 	jwtToken := commonHelpers.TrimWhiteSpace(authorizationSplits[1])
 	if jwtToken == "" {
+
 		return dataJwt, errors.New("Please input your token")
 	}
 
@@ -45,35 +40,39 @@ func (u *HTTPHelper) ValidateCMSJWTData(c echo.Context) (JWTSession, error) {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 
-		return []byte(commonHelpers.GetConfigurationStringValue("security.jwt_secret")), nil
+		return []byte(hmaKey), nil
 	})
 
 	if token == nil {
+
 		return dataJwt, errors.New("your token is null")
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid && claims != nil {
-		jsonbody, err := json.Marshal(claims)
+
+		dataSession := claims["rl"].(string)
+		key := []byte(keyConfig)
+
+		decoded, err := hex.DecodeString(dataSession)
 		if err != nil {
-			return dataJwt, err
+			return dataJwt, errors.New("there is something when decode data")
 		}
 
-		if err := json.Unmarshal(jsonbody, &dataJwt); err != nil {
-			return dataJwt, errors.New("you need to update JWTSession Struct")
+		plaintext, err := Decrypt(decoded, key)
+		if err != nil {
+			return dataJwt, errors.New("there is something when Decrypt data")
 		}
-	} else {
-		return dataJwt, errors.New("your token is invalid")
+
+		fmt.Println(string(plaintext))
+		err = json.Unmarshal(plaintext, &dataJwt)
+		if err != nil {
+			return dataJwt, errors.New("there is something when Unmarshal data")
+		}
 	}
 
-	today := time.Now().UTC()
-	jtwExpireDateTime := commonHelpers.Float64ToDateTimeUTC(dataJwt.Exp)
-	if today.After(jtwExpireDateTime) {
-		return dataJwt, errors.New("your token has been expired")
-	}
-
-	if commonHelpers.TrimWhiteSpace(dataJwt.Name) == "" || commonHelpers.TrimWhiteSpace(dataJwt.ID) == "" {
-		return dataJwt, errors.New("Invalid JWT session data. Name and ID should not be null")
+	if dataJwt.Username == "" {
+		return dataJwt, errors.New("username data from jwt is empty")
 	}
 
 	return dataJwt, nil

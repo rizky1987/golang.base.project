@@ -112,7 +112,7 @@ func (_h *UserHandler) LoginHandler(ctx echo.Context) error {
 		return _h.Helper.SendValidationError(ctx, "User not found", fileLocation, fileLine)
 	}
 
-	token, err := commonHelpers.GenetarateToken(dataCurrentUser)
+	token, err := helpers.GenetarateToken(dataCurrentUser)
 	if err != nil {
 		_, fileLocation, fileLine, _ := runtime.Caller(0)
 		return _h.Helper.SendValidationError(ctx, err.Error(), fileLocation, fileLine)
