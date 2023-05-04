@@ -6,7 +6,7 @@
         "debug": true,
         "host": "localhost",
         "base_path" : "api",
-        "port" : "80",
+        "port" : "3090",
         "version": "v1.3"
     },
     "database": {

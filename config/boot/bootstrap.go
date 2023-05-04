@@ -41,6 +41,9 @@ func (h *HTTPHandler) RegisterApiHandler() *HTTPHandler {
 	sql.NewDB(databaseHost, databaseName, databaseUser, databasePassword, databasePort)
 
 	// End DB Connection
+	h.E.GET("/", func(ctx echo.Context) error {
+		return ctx.HTML(200, "hallo hotel")
+	})
 
 	host := fmt.Sprintf("%s:%s", h.Config.GetString(`app.host`), h.Config.GetString(`app.port`))
 	//Begin Global Swagger Configuration
