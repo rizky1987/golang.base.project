@@ -29,7 +29,7 @@ func RegisterUserRoutes(baseEndpointGroup *echo.Group, db *gorm.DB, config env.C
 // @Description Product Create
 // @ID ProductCreate
 // @Accept multipart/form-data
-// @param Authorization header string true "Bearer %"
+// @Security Bearer
 // @Param productCode formData string true "productCode"
 // @Param dosageDescription formData string false "dosageDescription"
 // @Param usabilityDescription formData string false "usabilityDescription"

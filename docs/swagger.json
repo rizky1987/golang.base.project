@@ -1,12 +1,16 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {},
-        "license": {}
+        "contact": {}
     },
     "paths": {
         "/api/cms/v1/product/create": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Product Create",
                 "consumes": [
                     "multipart/form-data"
@@ -16,13 +20,6 @@
                 ],
                 "operationId": "ProductCreate",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer %",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "productCode",
@@ -85,14 +82,17 @@
             "type": "object",
             "properties": {
                 "alert": {
-                    "type": "object",
                     "$ref": "#/definitions/responses.AlertResponse"
                 },
-                "data": {
-                    "type": "object",
-                    "additionalProperties": true
-                }
+                "data": {}
             }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

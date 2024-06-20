@@ -12,14 +12,10 @@ definitions:
     properties:
       alert:
         $ref: '#/definitions/responses.AlertResponse'
-        type: object
-      data:
-        additionalProperties: true
-        type: object
+      data: {}
     type: object
 info:
   contact: {}
-  license: {}
 paths:
   /api/cms/v1/product/create:
     post:
@@ -28,11 +24,6 @@ paths:
       description: Product Create
       operationId: ProductCreate
       parameters:
-      - description: Bearer %
-        in: header
-        name: Authorization
-        required: true
-        type: string
       - description: productCode
         in: formData
         name: productCode
@@ -59,6 +50,13 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/responses.CommonBaseResponse'
+      security:
+      - Bearer: []
       tags:
       - Product
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

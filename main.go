@@ -33,6 +33,9 @@ func init() {
 
 }
 
+// @securityDefinitions.apikey Bearer
+// @in header
+// @name Authorization
 func main() {
 
 	defer catch()
